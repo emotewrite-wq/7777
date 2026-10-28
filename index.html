@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CA Inter Study Dashboard</title>
+<style>
+:root{--bg:#f1f8f7;--card:#fff;--tx:#12302f;--mu:#5d7c7a;--ac:#0f8b8d;--ln:#d3e5e3;--wk:#dcefff;--hl:#fff1d6;--ex:#c9503f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1b1b;--card:#142828;--tx:#e3f2f0;--mu:#8fb0ad;--ac:#3cc4c0;--ln:#264342;--wk:#173250;--hl:#4a3a17;--ex:#ec7b6a}}
+:root[data-theme="dark"]{--bg:#0d1b1b;--card:#142828;--tx:#e3f2f0;--mu:#8fb0ad;--ac:#3cc4c0;--ln:#264342;--wk:#173250;--hl:#4a3a17;--ex:#ec7b6a}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);padding-bottom:84px}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 4px;max-width:720px;margin:auto}
+header h1{font-size:17px;margin:0}
+main{max-width:720px;margin:auto;padding:8px 16px}
+.c{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px;margin:10px 0}
+h3{margin:0 0 8px;font-size:15px}
+.big{font-size:52px;font-weight:700;color:var(--ac);line-height:1.1}
+.sub{color:var(--mu);font-size:13px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.k{font-size:22px;font-weight:700}
+.r{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+input,select,button,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:8px;padding:6px 8px;min-width:0}
+input[type=number]{width:72px}input[type=date]{width:140px}input[type=datetime-local]{width:190px}input[type=checkbox]{width:18px;height:18px}
+button{cursor:pointer;background:var(--ac);color:#fff;border:0}
+button.o{background:transparent;color:var(--mu);border:1px solid var(--ln)}
+#nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--ln);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+#nav button{flex:1;background:none;color:var(--mu);font-size:11px;padding:4px 0}
+#nav button b{display:block;font-size:18px}#nav .on{color:var(--ac);font-weight:700}
+svg{width:100%;height:auto;display:block}
+.bar{flex:1;height:8px;background:var(--ln);border-radius:5px;overflow:hidden;min-width:60px}.bar div{height:100%;background:var(--ac)}
+.pb{display:flex;gap:8px;align-items:center;margin:6px 0}
+.tg{font-size:11px;background:var(--ex);color:#fff;border-radius:9px;padding:1px 8px;margin-left:6px}
+.n{width:56px;color:var(--mu);font-size:13px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.d{border:1px solid var(--ln);border-radius:8px;min-height:50px;padding:3px;font-size:12px;cursor:pointer}
+.d i{font-style:normal;font-weight:600}.d small{display:block;color:var(--mu)}
+.pw{background:var(--wk);border-color:var(--ac)}.hl{background:var(--hl)}.ex{border:2px solid var(--ex)}.sl{outline:2px solid var(--ac)}
+.hd{font-size:11px;color:var(--mu);text-align:center}
+textarea{width:100%;height:120px}
+@media print{#nav,header button{display:none}}
+</style></head>
+<body>
+<header><h1>CA Inter · Group 1 · Jan 2027</h1><button class="o" onclick="th()">◐ Theme</button></header>
+<main id="v"></main><nav id="nav"></nav>
+<script>
+const S=[["ACC","Advanced Accounting","#0f8b8d"],["LAW","Corporate & Other Laws","#2f6fb0"],["TAX","Taxation","#d08a2e"]],
+EX={ACC:"2027-01-02",LAW:"2027-01-04",TAX:"2027-01-06"},EXK=Object.values(EX),
+TT=["Short 1","Short 2","Short 3","Full 1","Full 2"],
+PP=[["MTP 1","MTP"],["MTP 2","MTP"],["RTP","RTP"],["PYQ 1","PYQ"],["PYQ 2","PYQ"],["PYQ 3","PYQ"]],
+MN=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+ACI=["Revise key standards and formats","Solve one full-length paper","Redo mistakes from earlier tests","Quick recall of formulas and treatments"],
+Q=["Small, steady hours beat one heroic night. Show up today and let the total grow.","You don’t need a perfect day, just a day that counts. Start the timer.","Every paper you solve now is one less surprise in January.","Rest is part of the plan. Study well, break well, repeat.","Slow progress is still progress. Keep the streak gently alive.","The exam hall will feel familiar if your desk feels familiar. Keep going."];
+let D={};try{D=JSON.parse(localStorage.getItem("ca27"))||{}}catch(e){}
+D.ses=D.ses||[];D.tests=D.tests||{};D.pp=D.pp||{};D.run=D.run||null;D.tgt=D.tgt||6;D.hol=D.hol||["2026-11-04","2026-11-06"];D.st=D.st||"";D.chk=D.chk||{};D.syl=D.syl||{};D.th=D.th||"";D.ls=D.ls||"ACC";
+S.forEach(s=>D.tests[s[0]]=D.tests[s[0]]||TT.map((n,i)=>({d:"",m:"",t:i<3?50:100})));
+PP.forEach(p=>D.pp[p[0]]=D.pp[p[0]]||{s:0,d:"",m:"",t:100,min:""});
+if(D.th)document.documentElement.dataset.theme=D.th;
+const save=()=>{try{localStorage.setItem("ca27",JSON.stringify(D))}catch(e){}},
+$=id=>document.getElementById(id),
+dk=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"),
+pd=k=>new Date(k+"T00:00:00"),
+esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])),
+bt=x=>x.br.reduce((a,b)=>a+((b.e||x.e)-b.s),0),
+net=x=>Math.max(0,x.e-x.s-bt(x)),
+runNet=()=>{const r=D.run,n=Date.now();return n-r.s-r.br.reduce((a,b)=>a+((b.e||n)-b.s),0)},
+fmt=ms=>{const s=Math.floor(ms/1e3);return[s/3600|0,s%3600/60|0,s%60].map(v=>String(v).padStart(2,"0")).join(":")},
+hm=ms=>{const m=Math.round(ms/6e4);return(m/60|0)+"h "+m%60+"m"},
+tm=ms=>new Date(ms).toTimeString().slice(0,5),
+lt=ms=>dk(new Date(ms))+"T"+tm(ms),
+T=s=>D.tests[s],P=n=>D.pp[n],
+pct=x=>x.m!==""&&+x.t>0?+(x.m/x.t*100).toFixed(1):null,
+isH=k=>k=="2026-11-05"||D.hol.includes(k)||(D.st&&k==D.st),
+opts=v=>S.map(s=>`<option value="${s[0]}" ${s[0]==v?"selected":""}>${s[1]}</option>`).join("");
+function dMap(){const m={};D.ses.forEach(x=>{const k=dk(new Date(x.s));m[k]=(m[k]||0)+net(x)});return m}
+function streak(dm){let n=0,d=new Date();for(let i=0;i<400;i++,d.setDate(d.getDate()-1)){const k=dk(d);if(dm[k]>0)n++;else if(isH(k)||i==0)continue;else break}return n}
+function bar(v,l,c,mx){mx=mx||Math.max(...v,.1);const w=320,h=120,n=v.length,b=w/n;return`<svg viewBox="0 0 ${w} ${h+20}">`+v.map((x,i)=>{const bh=x/mx*h;return`<rect x="${i*b+b*.15}" y="${h-bh}" width="${b*.7}" height="${bh}" rx="3" fill="${c?c[i%c.length]:"var(--ac)"}"/><text x="${i*b+b/2}" y="${h+14}" text-anchor="middle" font-size="9" fill="var(--mu)">${n>8&&i%2?"":l[i]}</text>`}).join("")+"</svg>"}
+function line(ss,l,mx){mx=mx||100;const w=320,h=110,X=i=>12+i*(w-24)/Math.max(l.length-1,1),Y=v=>h-v/mx*h+5;return`<svg viewBox="0 0 ${w} ${h+22}"><line x1="0" x2="${w}" y1="${h+5}" y2="${h+5}" stroke="var(--ln)"/>`+ss.map(s=>{const p=s.v.map((v,i)=>v==null?null:[X(i),Y(v)]).filter(Boolean);return`<polyline fill="none" stroke="${s.c}" stroke-width="2" points="${p.join(" ")}"/>`+p.map(q=>`<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="${s.c}"/>`).join("")}).join("")+l.map((t,i)=>`<text x="${X(i)}" y="${h+19}" text-anchor="middle" font-size="9" fill="var(--mu)">${l.length>8&&i%2?"":t}</text>`).join("")+"</svg>"}
+function pie(sl){const tot=sl.reduce((a,x)=>a+x.v,0);if(!tot)return'<p class="sub">No sessions yet.</p>';let a=0;const p=t=>[60+50*Math.sin(t),60-50*Math.cos(t)];return`<div class="r"><svg viewBox="0 0 120 120" style="width:130px">`+sl.map(x=>{const f=x.v/tot,b=a+f*2*Math.PI,o=f>.999?`<circle cx="60" cy="60" r="50" fill="${x.c}"/>`:`<path d="M60 60L${p(a)}A50 50 0 ${f>.5?1:0} 1 ${p(b)}Z" fill="${x.c}"/>`;a=b;return o}).join("")+"</svg><div>"+sl.map(x=>`<div class="sub"><span style="color:${x.c}">●</span> ${x.l}: ${hm(x.v)}</div>`).join("")+"</div></div>"}
+function tline(k){const d0=pd(k).getTime(),W=320,X=t=>(t-d0)/864e5*W;let o=`<svg viewBox="0 0 ${W} 46"><rect width="${W}" height="30" rx="4" fill="var(--ln)" opacity=".5"/>`;D.ses.filter(x=>dk(new Date(x.s))==k).forEach(x=>{const c=S.find(s=>s[0]==x.sub)[2];o+=`<rect x="${X(x.s)}" width="${Math.max(X(x.e)-X(x.s),1)}" height="30" fill="${c}"/>`;x.br.forEach(b=>o+=`<rect x="${X(b.s)}" width="${Math.max(X(b.e||x.e)-X(b.s),1)}" height="30" fill="var(--card)"/>`)});for(let h=0;h<=24;h+=6)o+=`<text x="${h*W/24}" y="43" font-size="9" fill="var(--mu)" text-anchor="${h==24?"end":h?"middle":"start"}">${h}:00</text>`;return o+"</svg>"}
+let tab="home",sel=dk(new Date()),tl=dk(new Date());
+function home(){const t=dk(new Date()),dm=dMap(),mon=new Date();mon.setHours(0,0,0,0);mon.setDate(mon.getDate()-((mon.getDay()+6)%7));
+const wk=Object.keys(dm).filter(k=>k>=dk(mon)).reduce((a,k)=>a+dm[k],0),all=Object.values(dm).reduce((a,b)=>a+b,0),
+tn=S.reduce((n,s)=>n+T(s[0]).filter(x=>x.m!=="").length,0),
+pg=(k,n)=>{const d=PP.filter(p=>p[1]==k&&P(p[0]).s==2).length;return`<div class="pb"><span style="width:60px">${k}${n>1?"s":""}</span><div class="bar"><div style="width:${d/n*100}%"></div></div><span>${d}/${n}</span></div>`},
+evs=[{n:"VBDYL district round",d:"2026-11-05"},{n:"State level event",d:D.st},...S.map(s=>({n:s[1]+" exam",d:EX[s[0]]}))].filter(e=>e.d&&e.d>=t).sort((a,b)=>a.d<b.d?-1:1),ne=evs[0];
+return`<div class="c" style="text-align:center"><div class="sub">Days to Advanced Accounting · 2 Jan 2027</div><div class="big" id="cd">–</div><div class="sub" id="ch"></div></div>
+<p style="text-align:center;margin:6px 0">${Q[Math.floor(Date.now()/864e5)%Q.length]}</p>
+<div class="c"><h3>Exam timetable</h3>${S.map(s=>`<div class="r"><span style="flex:1">${s[1]}</span><span class="sub">${pd(EX[s[0]]).toDateString().slice(0,10)}</span><b><span data-x="${EX[s[0]]}"></span> d</b></div>`).join("")}</div>
+<div class="g"><div class="c"><div class="sub">Today</div><div class="k">${hm(dm[t]||0)}</div></div><div class="c"><div class="sub">This week</div><div class="k">${hm(wk)}</div></div><div class="c"><div class="sub">Overall</div><div class="k">${hm(all)}</div></div></div>
+<div class="c"><h3>Progress</h3><div class="pb"><span style="width:60px">Tests</span><div class="bar"><div style="width:${tn/15*100}%"></div></div><span>${tn}/15</span></div>${pg("MTP",2)}${pg("RTP",1)}${pg("PYQ",3)}</div>
+<div class="c"><h3>Next up</h3>${ne?`<b>${ne.n}</b> · ${pd(ne.d).toDateString()}`:"Nothing scheduled"}</div>
+<div class="c"><h3>Export</h3><div class="r"><button onclick="exp()">Show CSV</button><button class="o" onclick="$('csv').select();document.execCommand('copy')">Copy</button><button class="o" onclick="window.print()">Print / PDF</button></div><textarea id="csv" placeholder="Tap Show CSV, then copy"></textarea></div>`}
+function log(){const r=D.run,ob=r&&r.br.length&&!r.br[r.br.length-1].e,dm=dMap(),days=[...Array(14)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-13+i);return d}),
+wv=[...Array(8)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)-7*(7-i));let s=0;for(let j=0;j<7;j++,d.setDate(d.getDate()+1))s+=dm[dk(d)]||0;return+(s/36e5).toFixed(1)}),
+sp=S.map(s=>({l:s[0],c:s[2],v:D.ses.filter(x=>x.sub==s[0]).reduce((a,x)=>a+net(x),0)})),
+best=Object.entries(dm).sort((a,b)=>b[1]-a[1])[0],ds=D.ses.filter(x=>dk(new Date(x.s))==tl);
+return`<div class="c"><select id="rs" ${r?"disabled":""} onchange="D.ls=this.value;save()">${opts(r?r.sub:D.ls)}</select><div class="big" id="tm">${r?fmt(runNet()):"00:00:00"}</div><div class="r">${!r?'<button onclick="st()">Start</button>':(ob?'<button onclick="rs()">Resume</button>':'<button onclick="bk()">Break</button>')+'<button class="o" onclick="en()">End</button>'}</div>${ob?'<div class="sub">On a break…</div>':""}
+<h3 style="margin-top:12px">Add manually</h3><div class="r"><select id="ms">${opts(D.ls)}</select><input type="date" id="md" value="${dk(new Date())}"><input type="time" id="m1" value="09:00"><input type="time" id="m2" value="11:00"><input type="number" id="m3" placeholder="Break min" value="0"><button onclick="man()">Add</button></div></div>
+<div class="g"><div class="c"><div class="sub">Streak</div><div class="k">${streak(dm)} days</div></div><div class="c"><div class="sub">Best day</div><div class="k">${best?hm(best[1]):"–"}</div><div class="sub">${best?best[0]:""}</div></div></div>
+<div class="c"><h3>Daily hours · last 14 days</h3>${bar(days.map(d=>+((dm[dk(d)]||0)/36e5).toFixed(1)),days.map(d=>d.getDate()))}</div>
+<div class="c"><h3>Weekly trend (hours)</h3>${line([{v:wv,c:"var(--ac)"}],wv.map((_,i)=>"W"+(i+1)),Math.max(...wv,1))}</div>
+<div class="c"><h3>Subject split</h3>${pie(sp)}</div>
+<div class="c"><h3>Day timeline</h3><input type="date" value="${tl}" onchange="tl=this.value;render()"><div class="sub">Study ${hm(ds.reduce((a,x)=>a+net(x),0))} · breaks ${hm(ds.reduce((a,x)=>a+bt(x),0))} · gaps show breaks</div>${tline(tl)}</div>
+<div class="c"><h3>Sessions</h3>${D.ses.slice().sort((a,b)=>b.s-a.s).map(x=>`<div class="r"><select onchange="se(${x.id},'sub',this.value)">${opts(x.sub)}</select><input type="datetime-local" value="${lt(x.s)}" onchange="se(${x.id},'s',this.value)"><input type="datetime-local" value="${lt(x.e)}" onchange="se(${x.id},'e',this.value)"><button class="o" onclick="sx(${x.id})">×</button><div class="sub" style="width:100%">Net ${hm(net(x))} · breaks ${hm(bt(x))}${x.br.length?" ("+x.br.map(b=>tm(b.s)+"–"+tm(b.e||x.e)).join(", ")+")":""}</div></div>`).join("")||'<p class="sub">No sessions yet.</p>'}</div>`}
+function tests(){const av=S.map(s=>{const p=T(s[0]).map(pct).filter(x=>x!=null);return p.length?p.reduce((a,b)=>a+b,0)/p.length:null}),kn=av.map((a,i)=>[a,i]).filter(x=>x[0]!=null),wi=kn.length>1?kn.sort((a,b)=>a[0]-b[0])[0][1]:-1;
+return S.map((s,i)=>`<div class="c"><h3 style="color:${s[2]}">${s[1]}${i==wi?'<span class="tg">weakest</span>':""}${av[i]!=null?` <span class="sub">avg ${av[i].toFixed(1)}%</span>`:""}</h3>`+T(s[0]).map((x,j)=>`<div class="r"><span class="n">${TT[j]}</span><input type="date" value="${x.d}" onchange="ts('${s[0]}',${j},'d',this.value)"><input type="number" placeholder="Marks" value="${x.m}" onchange="ts('${s[0]}',${j},'m',this.value)"><span>/</span><input type="number" value="${x.t}" onchange="ts('${s[0]}',${j},'t',this.value)"><b>${pct(x)==null?"–":pct(x)+"%"}</b><button class="o" onclick="tc('${s[0]}',${j})">×</button></div>`).join("")+line([{v:T(s[0]).map(pct),c:s[2]}],TT)+"</div>").join("")+`<div class="c"><h3>Average % by subject</h3>${bar(av.map(a=>a||0),S.map(s=>s[0]),S.map(s=>s[2]),100)}</div>`}
+function prac(){const ST=["Not started","In progress","Completed"],sc=PP.filter(p=>P(p[0]).m!==""&&+P(p[0]).t>0);
+return`<div class="c"><h3>Progress</h3>${[["MTP",2],["RTP",1],["PYQ",3]].map(([k,n])=>{const d=PP.filter(p=>p[1]==k&&P(p[0]).s==2).length;return`<div class="pb"><span style="width:60px">${k}${n>1?"s":""}</span><div class="bar"><div style="width:${d/n*100}%"></div></div><span>${d}/${n}</span></div>`}).join("")}</div>`+PP.map(p=>{const x=P(p[0]),n=p[0];return`<div class="c"><div class="r"><input type="checkbox" ${x.s==2?"checked":""} onchange="pk('${n}',this.checked)"><b style="flex:1">${n}</b><select onchange="pu('${n}','s',+this.value)">${ST.map((t,i)=>`<option value="${i}" ${x.s==i?"selected":""}>${t}</option>`).join("")}</select></div><div class="r"><input type="date" value="${x.d}" onchange="pu('${n}','d',this.value)"><input type="number" placeholder="Marks" value="${x.m}" onchange="pu('${n}','m',this.value)"><span>/</span><input type="number" value="${x.t}" onchange="pu('${n}','t',this.value)"><input type="number" placeholder="Mins" value="${x.min}" onchange="pu('${n}','min',this.value)"><button class="o" onclick="pc('${n}')">Clear</button></div></div>`}).join("")+`<div class="c"><h3>Scores (%)</h3>${sc.length?bar(sc.map(p=>+(P(p[0]).m/P(p[0]).t*100).toFixed(1)),sc.map(p=>p[0]),null,100):'<p class="sub">Add marks to see the chart.</p>'}</div>`}
+function plan(){const t=new Date();t.setHours(0,0,0,0);const dm=dMap(),end=pd("2027-01-06");let cells=[...Array((t.getDay()+6)%7)].map(()=>"<div></div>"),first=1;
+for(let d=new Date(t);d<=end;d.setDate(d.getDate()+1)){const k=dk(d),h=(dm[k]||0)/36e5,c=(k>="2026-12-26"&&k<="2027-01-01"?"pw ":"")+(isH(k)?"hl ":"")+(EXK.includes(k)?"ex ":"")+(k==sel?"sl":"");cells.push(`<div class="d ${c}" onclick="sel='${k}';render()"><i>${d.getDate()}${first||d.getDate()==1?" "+MN[d.getMonth()]:""}</i><small>${h?h.toFixed(1)+"h":""}</small></div>`);first=0}
+let miss=0;for(let i=1;i<=14;i++){const d=new Date(t);d.setDate(d.getDate()-i);const k=dk(d);if(!(dm[k]>0)&&!isH(k))miss++}
+const sh=(dm[sel]||0)/36e5,pw=sel>="2026-12-26"&&sel<="2027-01-01";
+return`<div class="c"><h3>Settings</h3><div class="r"><span>Daily target</span><input type="number" step="0.5" value="${D.tgt}" onchange="D.tgt=+this.value||6;save();render()"><span>hours</span></div><div class="sub">Missed study days in the last 14: ${miss} (competition holidays excluded)</div></div>
+<div class="c"><h3>Competition block</h3><div class="sub">VBDYL district round: 5 Nov 2026 (event day)</div><div class="r"><span>Competition holidays</span><input type="date" value="${D.hol[0]}" onchange="D.hol[0]=this.value;save();render()"><input type="date" value="${D.hol[1]}" onchange="D.hol[1]=this.value;save();render()"></div><div class="r"><span>State level event</span><input type="date" value="${D.st}" onchange="D.st=this.value;save();render()"></div><div class="sub">You can still log study on these days. They never break your streak.</div></div>
+<div class="c"><h3>Calendar</h3><div class="cal">${["M","T","W","T","F","S","S"].map(x=>`<div class="hd">${x}</div>`).join("")}${cells.join("")}</div><div class="sub" style="margin-top:8px">Blue: Accounts prep week (26 Dec–1 Jan) · Amber: competition holiday · Red outline: exam</div></div>
+<div class="c"><h3>${pd(sel).toDateString()}</h3><div class="sub">${sh.toFixed(1)}h of ${D.tgt}h target${isH(sel)?" · Competition holiday":""}${EXK.includes(sel)?" · Exam day":""}</div>${pw?"<h3 style='margin-top:10px'>Accounts checklist</h3>"+ACI.map((a,i)=>`<div class="r"><input type="checkbox" ${D.chk[sel+i]?"checked":""} onchange="D.chk['${sel}${i}']=this.checked;save()"><span>${a}</span></div>`).join(""):""}</div>`+S.map(s=>`<div class="c"><h3>${s[1]} syllabus</h3>`+(D.syl[s[0]]||[]).map((c,i)=>`<div class="r"><input type="checkbox" ${c.k?"checked":""} onchange="sy('${s[0]}',${i},'k',this.checked)"><input style="flex:1" value="${esc(c.n)}" onchange="sy('${s[0]}',${i},'n',this.value)"><button class="o" onclick="sd('${s[0]}',${i})">×</button></div>`).join("")+`<div class="r"><input id="ch${s[0]}" placeholder="Add chapter" style="flex:1"><button onclick="sa('${s[0]}')">Add</button></div></div>`).join("")}
+const V={home,log,tests,prac,plan},TB=[["home","Home","⌂"],["log","Study Log","⏱"],["tests","Tests","✎"],["prac","Practice","☑"],["plan","Planner","▦"]];
+function render(){$("v").innerHTML=V[tab]();$("nav").innerHTML=TB.map(t=>`<button class="${t[0]==tab?"on":""}" onclick="tab='${t[0]}';render();scrollTo(0,0)"><b>${t[2]}</b>${t[1]}</button>`).join("");tick()}
+function tick(){const ms=pd(EX.ACC)-Date.now();if($("cd")){$("cd").textContent=ms<=0?"Exam time":Math.floor(ms/864e5);$("ch").textContent=ms<=0?"":Math.floor(ms/36e5)+" hours "+Math.floor(ms%36e5/6e4)+" min "+Math.floor(ms%6e4/1e3)+" s to go"}
+document.querySelectorAll("[data-x]").forEach(e=>e.textContent=Math.max(0,Math.ceil((pd(e.dataset.x)-Date.now())/864e5)));if($("tm")&&D.run)$("tm").textContent=fmt(runNet())}
+setInterval(tick,1000);
+function th(){const c=document.documentElement.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");D.th=c=="dark"?"light":"dark";document.documentElement.dataset.theme=D.th;save()}
+const U=f=>{f();save();render()};
+function st(){U(()=>D.run={sub:$("rs").value,s:Date.now(),br:[]})}
+function bk(){U(()=>D.run.br.push({s:Date.now()}))}
+function rs(){U(()=>D.run.br[D.run.br.length-1].e=Date.now())}
+function en(){U(()=>{const r=D.run,n=Date.now(),l=r.br[r.br.length-1];if(l&&!l.e)l.e=n;D.ses.push({id:n,sub:r.sub,s:r.s,e:n,br:r.br});D.run=null})}
+function man(){const d=$("md").value,s=new Date(d+"T"+$("m1").value).getTime(),e=new Date(d+"T"+$("m2").value).getTime(),b=(+$("m3").value||0)*6e4;if(!(e>s))return;U(()=>D.ses.push({id:Date.now(),sub:$("ms").value,s,e,br:b?[{s:s+(e-s-b)/2,e:s+(e-s+b)/2}]:[]}))}
+function se(id,k,v){if(!v)return;U(()=>{const x=D.ses.find(x=>x.id==id);x[k]=k=="sub"?v:new Date(v).getTime()})}
+function sx(id){U(()=>D.ses=D.ses.filter(x=>x.id!=id))}
+function ts(s,i,k,v){U(()=>T(s)[i][k]=v)}
+function tc(s,i){U(()=>T(s)[i]={d:"",m:"",t:i<3?50:100})}
+function pu(n,k,v){U(()=>P(n)[k]=v)}
+function pk(n,c){U(()=>P(n).s=c?2:0)}
+function pc(n){U(()=>D.pp[n]={s:0,d:"",m:"",t:100,min:""})}
+function sa(s){const v=$("ch"+s).value.trim();if(v)U(()=>(D.syl[s]=D.syl[s]||[]).push({n:v,k:false}))}
+function sy(s,i,k,v){U(()=>D.syl[s][i][k]=v)}
+function sd(s,i){U(()=>D.syl[s].splice(i,1))}
+function exp(){const r=["Study sessions","subject,start,end,break_min,net_min"];D.ses.forEach(x=>r.push([x.sub,lt(x.s),lt(x.e),Math.round(bt(x)/6e4),Math.round(net(x)/6e4)].join(",")));r.push("","Tests","subject,test,date,marks,total,percent");S.forEach(s=>T(s[0]).forEach((x,j)=>r.push([s[0],TT[j],x.d,x.m,x.t,pct(x)??""].join(","))));r.push("","Practice","paper,status,date,marks,total,minutes");PP.forEach(p=>{const x=P(p[0]);r.push([p[0],["Not started","In progress","Completed"][x.s],x.d,x.m,x.t,x.min].join(","))});$("csv").value=r.join("\n")}
+render();
+</script></body></html>
